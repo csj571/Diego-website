@@ -2,12 +2,13 @@
   command = "npm run build"
   publish = "dist"
 
+# NODE_VERSION sets the Node.js version for both the build and the Functions runtime.
 [build.environment]
   NODE_VERSION = "20"
+  AWS_LAMBDA_JS_RUNTIME = "nodejs20.x"
 
 [functions]
   directory = "netlify/functions"
-  node_version = "20"
 
 # Rate Limiting configuration for the APIs.
 # Specific rules must precede the generic /api/* and SPA /* rules,
