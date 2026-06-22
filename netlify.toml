@@ -1,0 +1,55 @@
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "20"
+
+[functions]
+  directory = "netlify/functions"
+  node_version = "20"
+
+# Rate Limiting configuration for the APIs.
+# Specific rules must precede the generic /api/* and SPA /* rules,
+# because Netlify evaluates redirects top-to-bottom (first match wins).
+[[redirects]]
+  from = "/api/roast"
+  to = "/.netlify/functions/roast"
+  status = 200
+  force = true
+  [redirects.rate_limit]
+    window_limit = 10
+    window_size = 60
+    aggregate_by = ["ip"]
+
+[[redirects]]
+  from = "/api/clash"
+  to = "/.netlify/functions/clash"
+  status = 200
+  force = true
+  [redirects.rate_limit]
+    window_limit = 15
+    window_size = 60
+    aggregate_by = ["ip"]
+
+[[redirects]]
+  from = "/api/inspect"
+  to = "/.netlify/functions/inspect"
+  status = 200
+  force = true
+  [redirects.rate_limit]
+    window_limit = 15
+    window_size = 60
+    aggregate_by = ["ip"]
+
+# Generic API proxy fallback for any other /api/* paths.
+[[redirects]]
+  from = "/api/*"
+  to = "/.netlify/functions/:splat"
+  status = 200
+
+# SPA fallback — must be last so it doesn't shadow the rules above.
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
