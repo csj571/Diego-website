@@ -1,0 +1,23 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  }
+  
+  pre, code {
+    font-family: 'Fira Code', 'JetBrains Mono', monospace;
+  }
+}
+
+@layer utilities {
+  /* Customs for glow effects */
+  .glow-teal {
+    box-shadow: 0 0 20px -5px rgba(32, 230, 216, 0.3);
+  }
+  .glow-blue {
+    box-shadow: 0 0 20px -5px rgba(22, 82, 240, 0.3);
+  }
+}
